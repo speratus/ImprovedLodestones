@@ -1,8 +1,8 @@
 package blind.fold.improved_lodestones;
 
+import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.listener.ServerPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.util.math.BlockPos;
 
 import static blind.fold.improved_lodestones.ServerPlayPacketListenerExt.onUpdateLodestone;

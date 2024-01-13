@@ -1,8 +1,8 @@
 package blind.fold.improved_lodestones;
 
+import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.util.math.GlobalPos;
 
 import java.util.Map;
