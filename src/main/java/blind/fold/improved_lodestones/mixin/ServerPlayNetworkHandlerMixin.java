@@ -21,9 +21,9 @@ public abstract class ServerPlayNetworkHandlerMixin implements ServerPlayPacketL
   @Override
   @SuppressWarnings("deprecation")
   public void onUpdateLodestone(UpdateLodestoneC2SPacket packet) {
-    NetworkThreadUtils.forceMainThread(packet, this, this.player.getServerWorld());
+    NetworkThreadUtils.forceMainThread(packet, this, this.player.getWorld());
     this.player.updateLastActionTime();
-    var world = this.player.getServerWorld();
+    var world = this.player.getWorld();
     var pos = packet.pos();
     if (world.isChunkLoaded(pos)) {
       var blockEntity = world.getBlockEntity(pos);

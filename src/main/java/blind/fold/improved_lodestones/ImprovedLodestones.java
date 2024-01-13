@@ -5,10 +5,9 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
-import net.minecraft.registry.Registry;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import java.util.Objects;
@@ -19,7 +18,11 @@ public class ImprovedLodestones implements ModInitializer {
   
   public static final Identifier LODESTONE_BLOCK_ENTITY_ID = identifier("lodestone");
   
-  public static final BlockEntityType<LodestoneBlockEntity> LODESTONE_BLOCK_ENTITY = Registry.register(Registries.BLOCK_ENTITY_TYPE, LODESTONE_BLOCK_ENTITY_ID, FabricBlockEntityTypeBuilder.create(LodestoneBlockEntity::new, Blocks.LODESTONE).build());
+  public static final BlockEntityType<LodestoneBlockEntity> LODESTONE_BLOCK_ENTITY = Registry.register(
+          Registry.BLOCK_ENTITY_TYPE,
+          LODESTONE_BLOCK_ENTITY_ID,
+          FabricBlockEntityTypeBuilder.create(LodestoneBlockEntity::new, Blocks.LODESTONE).build()
+  );
   
   @Override
   public void onInitialize() {

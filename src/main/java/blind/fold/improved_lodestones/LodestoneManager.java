@@ -3,10 +3,10 @@ package blind.fold.improved_lodestones;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.nbt.*;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
 
@@ -43,7 +43,8 @@ public class LodestoneManager {
   public static LodestoneManager createClientLodestoneManager(Map<GlobalPos, LodestoneState.Existing> states) {
     var self = new LodestoneManager();
     for  (var entry : states.entrySet()) {
-      self.worlds.computeIfAbsent(entry.getKey().getDimension(), key -> WorldState.createEmpty()).setState(entry.getKey().getPos(), entry.getValue());
+      self.worlds.computeIfAbsent(entry.getKey().getDimension(), key -> WorldState.createEmpty())
+              .setState(entry.getKey().getPos(), entry.getValue());
     }
     return self;
   }
@@ -77,7 +78,12 @@ public class LodestoneManager {
     return setState(pos.getDimension(), pos.getPos(), state);
   }
   
-  public boolean broadcastSetState(MinecraftServer server, RegistryKey<World> dimension, BlockPos pos, LodestoneState state) {
+  public boolean broadcastSetState(
+          MinecraftServer server,
+          RegistryKey<World> dimension,
+          BlockPos pos,
+          LodestoneState state
+  ) {
     if (this.setState(dimension, pos, state)) {
       LodestoneUpdateS2CPacket packet = new LodestoneUpdateS2CPacket(dimension, pos, state);
       var playerManager = server.getPlayerManager();

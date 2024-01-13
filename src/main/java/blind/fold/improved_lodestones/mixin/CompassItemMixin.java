@@ -8,11 +8,11 @@ import net.minecraft.item.CompassItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.poi.PointOfInterestTypes;
 import org.spongepowered.asm.mixin.Final;
@@ -84,7 +84,10 @@ public abstract class CompassItemMixin extends ItemMixin {
           var dimensionKey = dimensionOpt.get();
           if (dimensionKey.equals(world.getRegistryKey())) break dimension;
           var dimensionId = dimensionKey.getValue();
-          dimensionText = Text.translatableWithFallback("dimension." + dimensionId.getNamespace() + '.' + dimensionId.getPath() + ".name", dimensionId.toString()).setStyle(LODESTONE_NAME_STYLE);
+          dimensionText = Text.translatable(
+                  "dimension." + dimensionId.getNamespace() + '.' + dimensionId.getPath() + ".name",
+                  dimensionId.toString()
+          ).setStyle(LODESTONE_NAME_STYLE);
         }
       }
       if (nameText != null) {
