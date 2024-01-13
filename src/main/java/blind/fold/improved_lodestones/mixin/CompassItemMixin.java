@@ -48,7 +48,17 @@ public abstract class CompassItemMixin extends ItemMixin {
   public static String LODESTONE_POS_KEY;
   
   @Inject(method = "inventoryTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/poi/PointOfInterestStorage;hasTypeAt(Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/util/math/BlockPos;)Z"), locals = LocalCapture.CAPTURE_FAILHARD)
-  private void initUnmanagedLodestones(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo info, NbtCompound nbt, Optional<RegistryKey<World>> lodestoneDimension, BlockPos lodestonePos) {
+  private void initUnmanagedLodestones(
+          ItemStack stack,
+          World world,
+          Entity entity,
+          int slot,
+          boolean selected,
+          CallbackInfo info,
+          NbtCompound nbt,
+          Optional<RegistryKey<World>> lodestoneDimension,
+          BlockPos lodestonePos
+  ) {
     // I can't get a RegistryKey<World> inside PointOfInterestStorage or PointOfInterestSet, so I can't record lodestone positions without moving the corresponding LodestoneManager.WorldState inside the POIStorage.
     // Instead, I'm doing this workaround where each inventoryTick that checks that the POI still exists also puts a LodestoneState in the manager if it doesn't have one, so there are no observable consequences of the fact that the POI exists while the LodestoneState doesn't
     // Bonus scuffed points to Mojang and Mixin for making it impossible to reuse their call to POIStorage::hasTypeAt, so I have to be redundant about it (at least it's O(1), I think)
